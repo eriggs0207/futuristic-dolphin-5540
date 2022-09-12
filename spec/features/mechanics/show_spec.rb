@@ -19,6 +19,7 @@ RSpec.describe 'mechanic show page' do
     RideMechanic.create!(mechanic_id: @sam.id, ride_id: @hurler.id)
     RideMechanic.create!(mechanic_id: @sam.id, ride_id: @ferris.id)
     RideMechanic.create!(mechanic_id: @tom.id, ride_id: @jaws.id)
+    RideMechanic.create!(mechanic_id: @tom.id, ride_id: @hurler.id)
     RideMechanic.create!(mechanic_id: @kim.id, ride_id: @jaws.id)
     RideMechanic.create!(mechanic_id: @kim.id, ride_id: @scrambler.id)
     RideMechanic.create!(mechanic_id: @kim.id, ride_id: @ferris.id)
@@ -61,7 +62,18 @@ RSpec.describe 'mechanic show page' do
         expect(page).to have_content(@scrambler.name)
         expect(page).to have_content(@jaws.name)
         expect(page).to_not have_content(@ferris.name)
-      end  
+      end
+
+      it 'the rides are listed by thrill rating in descending order' do
+
+        visit "/mechanics/#{@kim.id}"
+
+        expect(@jaws.name).to appear_before(@scrambler.name)
+
+        visit "/mechanics/#{@tom.id}"
+
+        expect(@hurler.name).to appear_before(@jaws.name)
+      end
     end
   end
 end

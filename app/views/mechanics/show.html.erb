@@ -1,8 +1,8 @@
 <h2><%= @mechanic.name %></h2>
 <p>Years experience: <%= @mechanic.years_experience %></p>
 <p>Current rides: </p>
-<% @mechanic.rides.each do |ride| %>
-  <% if ride.open = true %>
+<% @mechanic.rides.thrill_rating_order.each do |ride| %>
+  <% if ride.open != false %>
     <%= ride.name %>
     <% end %>
   <% end %>
